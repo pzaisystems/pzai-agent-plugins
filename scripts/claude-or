@@ -1,0 +1,36 @@
+#!/bin/bash
+# OpenRouter wrapper for claude -p cron scripts.
+# Cheaper models (DeepSeek, etc.) via OpenRouter instead of burning Anthropic quota.
+# Usage: replace /root/.local/bin/claude with /root/scripts/claude-or in cron scripts.
+# Model override: OPENROUTER_MODEL env var (default: deepseek/deepseek-chat-v3-0324:free)
+
+source /root/.pzai-env 2>/dev/null
+source /root/.env 2>/dev/null
+
+if [ -z "$OPENROUTER_API_KEY" ]; then
+    # Fallback to real claude if no OpenRouter key
+    exec /root/.local/bin/claude "$@"
+fi
+
+export ANTHROPIC_BASE_URL="https://openrouter.ai/api/v1"
+export ANTHROPIC_API_KEY="$OPENROUTER_API_KEY"
+
+# Default to a free/cheap model unless caller overrides
+if [ -z "$OPENROUTER_MODEL" ]; then
+    OPENROUTER_MODEL="deepseek/deepseek-chat-v3-0324:free"
+fi
+
+# Inject --model if using -p (print mode) and no model specified
+ARGS=("$@")
+HAS_MODEL=false
+IS_PRINT=false
+for arg in "${ARGS[@]}"; do
+    [[ "$arg" == "-p" || "$arg" == "--print" ]] && IS_PRINT=true
+    [[ "$arg" == "--model" || "$arg" == -m ]] && HAS_MODEL=true
+done
+
+if $IS_PRINT && ! $HAS_MODEL; then
+    exec /root/.local/bin/claude --model "$OPENROUTER_MODEL" "${ARGS[@]}"
+else
+    exec /root/.local/bin/claude "${ARGS[@]}"
+fi
