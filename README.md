@@ -20,6 +20,7 @@ scripts/
 skills/
   yoda-revive-skill.md              Step-by-step Yoda revival for every failure mode
   proactive-improvements-check-skill.md   The 4-question improvement check
+  model-tier-dispatch-skill.md      Opus/Sonnet/Haiku 3-tier dispatch policy for every spawner (Yoda/Maximus/Trinity)
 ```
 
 ## Installing on a new agent
