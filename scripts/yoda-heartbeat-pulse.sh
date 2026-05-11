@@ -273,11 +273,11 @@ PULSE_LOG="$PULSE_OUTPUT_DIR/$(date +%Y%m%d-%H%M%S)-heartbeat.log"
 # Yoda context instead of Padmé context. Paperclip ticket alone isn't real
 # delegation — claude -p needs to RUN inside the agent's persona dir.)
 case "$DISPATCH_AGENT" in
-  "Anakin")  AGENT_DIR="/root/website-pipeline/agents/anakin" ;;
-  "Padme")   AGENT_DIR="/root/website-pipeline/agents/padme" ;;
-  "Obi-Wan") AGENT_DIR="/root/website-pipeline/agents/obiwan" ;;
-  "Luke")    AGENT_DIR="/root/website-pipeline/agents/luke" ;;
-  "Leia")    AGENT_DIR="/root/website-pipeline/agents/leia" ;;
+  "Anakin")  AGENT_DIR="/root/MyCarLife-iOS/02-AGENTS/Anakin" ;;
+  "Padme")   AGENT_DIR="/root/MyCarLife-iOS/02-AGENTS/Padme" ;;
+  "Obi-Wan") AGENT_DIR="/root/MyCarLife-iOS/02-AGENTS/Obi-Wan" ;;
+  "Luke")    AGENT_DIR="/root/MyCarLife-iOS/02-AGENTS/Luke" ;;
+  "Leia")    AGENT_DIR="/root/MyCarLife-iOS/02-AGENTS/Leia" ;;
   *)         AGENT_DIR="/root/website-pipeline" ;;
 esac
 [ -f "$AGENT_DIR/CLAUDE.md" ] || AGENT_DIR="/root/website-pipeline"
