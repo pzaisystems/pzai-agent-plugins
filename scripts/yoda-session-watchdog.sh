@@ -33,7 +33,7 @@ restart_yoda_with_verification() {
   tmux kill-session -t yoda 2>/dev/null
   sleep 2
   tmux new-session -d -s yoda
-  tmux send-keys -t yoda "cd /root/website-pipeline && /root/.local/bin/claude --channels plugin:telegram@claude-plugins-official plugin:precontext@local --plugin-dir /root/pzai-agent-plugins/plugins/precontext-channel" Enter
+  tmux send-keys -t yoda "cd /root/website-pipeline && /root/.local/bin/claude --channels plugin:telegram@claude-plugins-official --channels plugin:precontext@local --channels plugin:yoda-inbox@local --plugin-dir /root/pzai-agent-plugins/plugins/precontext-channel --plugin-dir /root/pzai-agent-plugins/plugins/yoda-inbox-channel" Enter
   for i in $(seq 1 20); do
     sleep 1
     if tmux capture-pane -t yoda -p | grep -q "Listening for channel messages from:"; then

@@ -31,7 +31,7 @@ Match the last 20 lines to a state:
 ## Section A — Cold Start
 
 ```bash
-ssh root@187.124.157.74 "tmux kill-session -t yoda 2>/dev/null; sleep 1; tmux new-session -d -s yoda -x 220 -y 50 && tmux send-keys -t yoda '/root/.local/bin/claude --channels plugin:telegram@claude-plugins-official --plugin-dir /root/pzai-agent-plugins/plugins/precontext-channel' Enter"
+ssh root@187.124.157.74 "tmux kill-session -t yoda 2>/dev/null; sleep 1; tmux new-session -d -s yoda -x 220 -y 50 && tmux send-keys -t yoda '/root/.local/bin/claude --channels plugin:telegram@claude-plugins-official --channels plugin:precontext@local --channels plugin:yoda-inbox@local --plugin-dir /root/pzai-agent-plugins/plugins/precontext-channel --plugin-dir /root/pzai-agent-plugins/plugins/yoda-inbox-channel' Enter"
 sleep 12
 ssh root@187.124.157.74 "tmux capture-pane -t yoda -p -S -20"
 ```
@@ -43,7 +43,7 @@ NOTE (v2.1.132+): `--dangerously-skip-permissions` is blocked as root. Drop it. 
 ## Section B — OAuth Re-login (~48hr cycle)
 
 ```bash
-ssh root@187.124.157.74 "tmux send-keys -t yoda C-c && sleep 2 && tmux send-keys -t yoda '/root/.local/bin/claude --channels plugin:telegram@claude-plugins-official --plugin-dir /root/pzai-agent-plugins/plugins/precontext-channel' Enter"
+ssh root@187.124.157.74 "tmux send-keys -t yoda C-c && sleep 2 && tmux send-keys -t yoda '/root/.local/bin/claude --channels plugin:telegram@claude-plugins-official --channels plugin:precontext@local --channels plugin:yoda-inbox@local --plugin-dir /root/pzai-agent-plugins/plugins/precontext-channel --plugin-dir /root/pzai-agent-plugins/plugins/yoda-inbox-channel' Enter"
 sleep 8
 ssh root@187.124.157.74 "tmux capture-pane -t yoda -p -S -15"
 ```
@@ -62,7 +62,7 @@ Strip all hooks, restart. Investigate which hook was broken after Yoda is live.
 
 ```bash
 ssh root@187.124.157.74 "cp /root/.claude/settings.json /root/.claude/settings.json.bak.$(date +%b%d) && python3 -c \"import json; s=json.load(open('/root/.claude/settings.json')); s.pop('hooks',None); json.dump(s,open('/root/.claude/settings.json','w'),indent=2); print('hooks stripped')\""
-ssh root@187.124.157.74 "tmux kill-session -t yoda 2>/dev/null; sleep 1; tmux new-session -d -s yoda -x 220 -y 50 && tmux send-keys -t yoda '/root/.local/bin/claude --channels plugin:telegram@claude-plugins-official --plugin-dir /root/pzai-agent-plugins/plugins/precontext-channel' Enter"
+ssh root@187.124.157.74 "tmux kill-session -t yoda 2>/dev/null; sleep 1; tmux new-session -d -s yoda -x 220 -y 50 && tmux send-keys -t yoda '/root/.local/bin/claude --channels plugin:telegram@claude-plugins-official --channels plugin:precontext@local --channels plugin:yoda-inbox@local --plugin-dir /root/pzai-agent-plugins/plugins/precontext-channel --plugin-dir /root/pzai-agent-plugins/plugins/yoda-inbox-channel' Enter"
 sleep 12
 ssh root@187.124.157.74 "tmux capture-pane -t yoda -p -S -15"
 ```
@@ -90,7 +90,7 @@ Wait 5-10 minutes. Watchdog Check 6 sends Telegram alert. Nothing to fix.
 ssh root@187.124.157.74 "tmux ls && tmux capture-pane -t yoda -p -S -20"
 
 # Cold restart
-ssh root@187.124.157.74 "tmux kill-session -t yoda 2>/dev/null; sleep 1; tmux new-session -d -s yoda -x 220 -y 50 && tmux send-keys -t yoda '/root/.local/bin/claude --channels plugin:telegram@claude-plugins-official --plugin-dir /root/pzai-agent-plugins/plugins/precontext-channel' Enter"
+ssh root@187.124.157.74 "tmux kill-session -t yoda 2>/dev/null; sleep 1; tmux new-session -d -s yoda -x 220 -y 50 && tmux send-keys -t yoda '/root/.local/bin/claude --channels plugin:telegram@claude-plugins-official --channels plugin:precontext@local --channels plugin:yoda-inbox@local --plugin-dir /root/pzai-agent-plugins/plugins/precontext-channel --plugin-dir /root/pzai-agent-plugins/plugins/yoda-inbox-channel' Enter"
 
 # Strip hooks (unblocks hook errors immediately)
 ssh root@187.124.157.74 "python3 -c \"import json; s=json.load(open('/root/.claude/settings.json')); s.pop('hooks',None); json.dump(s,open('/root/.claude/settings.json','w'),indent=2)\""

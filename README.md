@@ -8,7 +8,8 @@ This is the single source of truth for agent infrastructure. When a hook breaks 
 
 ```
 plugins/
-  precontext-channel/   MCP channel plugin — bridges Claude Code to PreContext
+  precontext-channel/   MCP channel plugin — bridges Claude Code to PreContext (Mack's inbound messages → Yoda)
+  yoda-inbox-channel/   MCP channel plugin — RECEIVE-ONLY inbox; polls yoda-inbox.jsonl and delivers agent findings to Yoda in real time
 hooks/
   proactive-improvements-check.sh         Stop hook — forces automation gap analysis each session
   auto-capture-skill.sh                   Stop hook — captures non-obvious solutions as skills

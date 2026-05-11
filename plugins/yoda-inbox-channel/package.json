@@ -1,0 +1,14 @@
+{
+  "name": "claude-channel-yoda-inbox",
+  "version": "0.1.0",
+  "description": "Claude Code MCP channel plugin — receive-only inbox for Yoda governing cron-spawned agent findings",
+  "license": "Apache-2.0",
+  "type": "module",
+  "bin": "./server.ts",
+  "scripts": {
+    "start": "bun install --no-summary && bun server.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  }
+}
